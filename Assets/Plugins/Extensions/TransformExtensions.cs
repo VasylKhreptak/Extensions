@@ -19,10 +19,11 @@ namespace Plugins.Extensions
             Transform newParent = new GameObject(name).transform;
             Transform oldParent = transform.parent;
             newParent.SetParent(oldParent);
-            newParent.localPosition = transform.localPosition;
-            newParent.localRotation = transform.localRotation;
-            newParent.localScale = transform.localScale;
+            newParent.localPosition = Vector3.zero;
+            newParent.localRotation = Quaternion.identity;
+            newParent.localScale = Vector3.one;
             transform.SetParent(newParent, true);
+
             return newParent;
         }
     }

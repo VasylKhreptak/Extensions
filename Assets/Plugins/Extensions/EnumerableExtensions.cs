@@ -13,6 +13,9 @@ namespace Plugins.Extensions
 
             float randomNumber = UnityEngine.Random.value * totalWeight;
 
+            if (randomNumber >= totalWeight)
+                randomNumber = totalWeight - float.Epsilon;
+            
             float weightSum = 0;
             foreach (TSource item in enumerable)
             {
@@ -28,6 +31,18 @@ namespace Plugins.Extensions
         {
             TSource[] enumerable = source as TSource[] ?? source.ToArray();
             return enumerable.ElementAt(UnityEngine.Random.Range(0, enumerable.Length));
+        }
+
+        public static IEnumerable<TSource> Shuffle<TSource>(this IEnumerable<TSource> source)
+        {
+            TSource[] array = source as TSource[] ?? source.ToArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                int randomIndex = UnityEngine.Random.Range(i, array.Length);
+                (array[randomIndex], array[i]) = (array[i], array[randomIndex]);
+            }
+
+            return array;
         }
     }
 }

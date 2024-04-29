@@ -11,5 +11,15 @@ namespace Plugins.Extensions
 
             return gameObject.AddComponent<T>();
         }
+
+        public static GameObject[] GetChildren(this GameObject gameObject)
+        {
+            GameObject[] children = new GameObject[gameObject.transform.childCount];
+
+            for (int i = 0; i < gameObject.transform.childCount; i++)
+                children[i] = gameObject.transform.GetChild(i).gameObject;
+
+            return children;
+        }
     }
 }
