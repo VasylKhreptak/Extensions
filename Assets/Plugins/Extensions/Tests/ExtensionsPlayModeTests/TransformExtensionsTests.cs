@@ -69,5 +69,29 @@ namespace Plugins.Extensions.Tests.ExtensionsPlayModeTests
             Assert.AreEqual(targetScale.y, target.transform.localScale.y, 0.001f);
             Assert.AreEqual(targetScale.z, target.transform.localScale.z, 0.001f);
         }
+
+        [UnityTest]
+        public IEnumerator DestroyAllChildrenTest()
+        {
+            GameObject parent = new GameObject("Parent");
+
+            GameObject child1 = new GameObject("Child1");
+            GameObject child2 = new GameObject("Child2");
+            GameObject child3 = new GameObject("Child3");
+
+            child1.transform.SetParent(parent.transform);
+            child2.transform.SetParent(parent.transform);
+            child3.transform.SetParent(parent.transform);
+
+            Assert.AreEqual(3, parent.transform.childCount);
+
+            parent.transform.DestroyAllChildren();
+
+            yield return null;
+
+            Assert.AreEqual(0, parent.transform.childCount);
+
+            Object.Destroy(parent);
+        }
     }
 }

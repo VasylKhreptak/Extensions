@@ -28,5 +28,11 @@ namespace Plugins.Extensions
 
             return newParent;
         }
+
+        public static void DestroyAllChildren(this Transform transform)
+        {
+            foreach (Transform child in transform.GetChildren())
+                Object.Destroy(child.gameObject);
+        }
     }
 }
